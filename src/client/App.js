@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import ItemPicker from './components/ItemPicker';
 
-export default () => (
+export default () => {
+  const [selectedItems, setSelectedItems] = useState([]);
+
+
+  useEffect(() => {
+    fetch('/api/items')
+    .then(response => response.json())
+    .then(data => {
+      setSelectedItems(data.items)
+      })
+      .catch( err => console.error(err))
+  }, []);
+
+  return (
   <div className="wrapper">
     <div className="menu-summary">
       <div className="container">
@@ -23,64 +37,7 @@ export default () => (
           <div className="filters">
             <input className="form-control" placeholder="Name" />
           </div>
-          <ul className="item-picker">
-            <li className="item">
-              <h2>Dummy item</h2>
-              <p>
-                <span className="dietary">ve</span>
-                <span className="dietary">v</span>
-                <span className="dietary">n!</span>
-              </p>
-            </li>
-            <li className="item">
-              <h2>Dummy item</h2>
-              <p>
-                <span className="dietary">ve</span>
-                <span className="dietary">v</span>
-                <span className="dietary">n!</span>
-              </p>
-            </li>
-            <li className="item">
-              <h2>Dummy item</h2>
-              <p>
-                <span className="dietary">ve</span>
-                <span className="dietary">v</span>
-                <span className="dietary">n!</span>
-              </p>
-            </li>
-            <li className="item">
-              <h2>Dummy item</h2>
-              <p>
-                <span className="dietary">ve</span>
-                <span className="dietary">v</span>
-                <span className="dietary">n!</span>
-              </p>
-            </li>
-            <li className="item">
-              <h2>Dummy item</h2>
-              <p>
-                <span className="dietary">ve</span>
-                <span className="dietary">v</span>
-                <span className="dietary">n!</span>
-              </p>
-            </li>
-            <li className="item">
-              <h2>Dummy item</h2>
-              <p>
-                <span className="dietary">ve</span>
-                <span className="dietary">v</span>
-                <span className="dietary">n!</span>
-              </p>
-            </li>
-            <li className="item">
-              <h2>Dummy item</h2>
-              <p>
-                <span className="dietary">ve</span>
-                <span className="dietary">v</span>
-                <span className="dietary">n!</span>
-              </p>
-            </li>
-          </ul>
+          <ItemPicker items={selectedItems} />
         </div>
         <div className="col-8">
           <h2>Menu preview</h2>
@@ -126,4 +83,4 @@ export default () => (
       </div>
     </div>
   </div>
-);
+)};
