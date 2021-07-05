@@ -1,21 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
-export default ({ items }) => {
+import SingleItem from './SingleItem';
 
+const ItemPicker =  ({ items, handleSelectItems  }) => {
   return (
-    <React.Fragment>
-      {items && items.map(item => ( 
-        <ul className="item-picker">
-          <li className="item">
-            <h2>{item.name}</h2>
-            <p>
-              {item.dietaries.map(dietary => (
-                <span className="dietary">{dietary}</span>
-              ))}
-            </p>
-          </li>
-        </ul>
-      ))}
-    </React.Fragment>
+    <ul className="item-picker">
+      {items && items.map(item => <SingleItem item={item} handleSelectItems={handleSelectItems} />)}
+    </ul>
   )
 }
+
+ItemPicker.propTypes = {
+  items: PropTypes.array,
+  handleSelectItems: PropTypes.func
+}
+
+export default ItemPicker
