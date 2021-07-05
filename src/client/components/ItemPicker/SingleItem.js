@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
-export default ({ item, handleSelectItems }) => {
+const SingleItem = ({ item, handleSelectItems }) => {
   const { name, dietaries} = item
 
   return (
@@ -17,3 +18,10 @@ export default ({ item, handleSelectItems }) => {
     </li>
   )
 }
+
+SingleItem.propTypes = {
+  item: PropTypes.object,
+  handleSelectItems: PropTypes.func,
+}
+
+export default SingleItem;

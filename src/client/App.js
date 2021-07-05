@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-import ItemPicker from './components/ItemPicker';
+import ItemPicker from './components/ItemPicker/ItemPicker';
 import MenuPreview from './components/MenuPreview/MenuPreview';
 
 export default () => {
@@ -19,11 +19,19 @@ export default () => {
   }, []);
 
   const handleSelectItems = (id) => {
-
-    const selectedItem = items.find(item => item.id === id)
+    const selectedItem = items.find(item => item.id === id);
     
-    setSelectedItems([...selectedItems, selectedItem])
+    setSelectedItems([...selectedItems, selectedItem]);
   }
+
+  const removeItem = (id) => {
+    const itemIndexToRemove = selectedItems.findIndex(selectedItem => selectedItem.id === id);
+    const newItems = [...selectedItems];
+    newItems.splice(itemIndexToRemove, 1);
+
+    setSelectedItems(newItems)
+  }
+
   return (
   <div className="wrapper">
     <div className="menu-summary">
@@ -46,11 +54,17 @@ export default () => {
           <div className="filters">
             <input className="form-control" placeholder="Name" />
           </div>
-          <ItemPicker items={items} handleSelectItems={handleSelectItems} />
+          <ItemPicker
+            items={items}
+            handleSelectItems={handleSelectItems} 
+          />
         </div>
         <div className="col-8">
           <h2>Menu preview</h2>
-          <MenuPreview selectedItems={selectedItems}/>
+          <MenuPreview
+            selectedItems={selectedItems}
+            removeItem={removeItem}
+          />
         </div>
       </div>
     </div>
